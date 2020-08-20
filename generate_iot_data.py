@@ -18,15 +18,22 @@ print("   Generating Sample IoT Data   ")
 print("================================")
 print("\nStarting " + time.strftime("%Y-%m-%d %H:%M:%S", startTs) + "\n")
 
+
 ####
 # Main start function
 ####
 def main():
-    print('NUM DOCS TO GENERATE: ' + str(NUM_DOCS))
 
     mongo_client = MongoClient(MDB_CONNECTION)
     db = mongo_client[MDB_DATABASE]
     my_collection = db[MDB_COLLECTION]
+
+    print('Delete existing documents.')
+    result = my_collection.delete_many({})
+    print('Num docs deleted: ' + str(result.deleted_count))
+
+    print('Begin generating IOT documents.')
+    print('NUM DOCS TO GENERATE: ' + str(NUM_DOCS))
 
     for index in range(int(NUM_DOCS)):
         # create timestamp
@@ -40,16 +47,21 @@ def main():
             "hostName": fake.hostname(),
             "portNum": fake.port_number(),
             "location": {
-                    "type": "Point",
-                    "coordinates": [
-                        Decimal128(fake.longitude()),
-                        Decimal128(fake.latitude())
-                    ]
+                "type": "Point",
+                "coordinates": [
+                    Decimal128(fake.longitude()),
+                    Decimal128(fake.latitude())
+                ]
             },
             "dateAccessed": datetime.datetime(fake_timestamp.year, fake_timestamp.month, fake_timestamp.day)
         }
-        print(my_iot_document)
+
+        if index == 1:
+            print('Example Document')
+            print(my_iot_document)
+
         my_collection.insert_one(my_iot_document)
+
 
 ####
 # Constants loaded from .env file
