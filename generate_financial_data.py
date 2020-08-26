@@ -73,9 +73,16 @@ def main():
                 'balance': random.randint(0, 99999)
             })
 
+        # Print example doc on first doc creation
         if index == 1:
             print('Example Document')
             print(my_financial_document)
+
+        # For every 10 documents, add an additional field
+        if index % 10:
+            my_financial_document.update({
+                'previousBank': fake.company()
+            })
 
         my_collection.insert_one(my_financial_document)
 
