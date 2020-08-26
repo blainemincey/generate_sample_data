@@ -34,7 +34,7 @@ def main():
 
     for index in range(int(NUM_DOCS)):
         # create timestamp
-        fake_timestamp = fake.date_this_decade()
+        fake_timestamp = fake.date_between(start_date='-20y', end_date='today')
 
         my_financial_document = {
             "customerId": fake.ssn(),
@@ -43,6 +43,7 @@ def main():
             "city": fake.city(),
             "state": fake.state(),
             "postalCode": fake.postcode(),
+            "email": fake.email(),
             "lastLocation": {
                 "type": "Point",
                 "coordinates": [
