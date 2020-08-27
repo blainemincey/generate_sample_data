@@ -79,10 +79,14 @@ def main():
             print(my_financial_document)
 
         # For every 10 documents, add an additional field
-        if index % 10:
+        if index%10==0:
             my_financial_document.update({
                 'previousBank': fake.company()
             })
+
+        # Indicate how many docs inserted
+        if index%100==0:
+            print('Docs inserted: ' + str(index))
 
         my_collection.insert_one(my_financial_document)
 
@@ -106,7 +110,16 @@ if __name__ == '__main__':
 ####
 end = timer()
 endTs = time.gmtime()
+total_time = end - start
+
+if total_time < 1:
+    docs_inserted_time = int(NUM_DOCS)/1
+else:
+    docs_inserted_time = int(NUM_DOCS)/total_time
+
 print("\nEnding " + time.strftime("%Y-%m-%d %H:%M:%S", endTs))
 print('===============================')
-print('Total Time Elapsed (in seconds): ' + str(end - start))
+print('Total Time Elapsed (in seconds): ' + str(total_time))
+print('===============================')
+print('Number of Docs inserted per second: ' + str(docs_inserted_time))
 print('===============================')
