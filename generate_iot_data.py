@@ -33,7 +33,7 @@ def main():
     print('Num docs deleted: ' + str(result.deleted_count))
 
     print('Begin generating IOT documents.')
-    print('NUM DOCS TO GENERATE: ' + str(NUM_DOCS))
+    print('Number of documents to generate: ' + str(NUM_DOCS))
 
     for index in range(int(NUM_DOCS)):
         # create timestamp
@@ -60,6 +60,10 @@ def main():
             print('Example Document')
             print(my_iot_document)
 
+        # Indicate how many docs inserted every 100 iterations
+        if index % 100 == 0:
+            print('Docs inserted: ' + str(index))
+
         my_collection.insert_one(my_iot_document)
 
 
@@ -82,7 +86,16 @@ if __name__ == '__main__':
 ####
 end = timer()
 endTs = time.gmtime()
+total_time = end - start
+
+if total_time < 1:
+    docs_inserted_time = int(NUM_DOCS) / 1
+else:
+    docs_inserted_time = int(NUM_DOCS) / total_time
+
 print("\nEnding " + time.strftime("%Y-%m-%d %H:%M:%S", endTs))
 print('===============================')
-print('Total Time Elapsed (in seconds): ' + str(end - start))
+print('Total Time Elapsed (in seconds): ' + str(total_time))
+print('===============================')
+print('Number of Docs inserted per second: ' + str(docs_inserted_time))
 print('===============================')
