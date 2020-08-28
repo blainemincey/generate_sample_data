@@ -24,7 +24,6 @@ print("\nStarting " + time.strftime("%Y-%m-%d %H:%M:%S", startTs) + "\n")
 # Main start function
 ####
 def main():
-
     mongo_client = MongoClient(MDB_CONNECTION)
     db = mongo_client[MDB_DATABASE]
     my_collection = db[MDB_COLLECTION]
@@ -79,13 +78,13 @@ def main():
             print(my_financial_document)
 
         # For every 10 documents, add an additional field
-        if index%10==0:
+        if index % 10 == 0:
             my_financial_document.update({
                 'previousBank': fake.company()
             })
 
         # Indicate how many docs inserted
-        if index%100==0:
+        if index % 100 == 0:
             print('Docs inserted: ' + str(index))
 
         my_collection.insert_one(my_financial_document)
@@ -113,9 +112,9 @@ endTs = time.gmtime()
 total_time = end - start
 
 if total_time < 1:
-    docs_inserted_time = int(NUM_DOCS)/1
+    docs_inserted_time = int(NUM_DOCS) / 1
 else:
-    docs_inserted_time = int(NUM_DOCS)/total_time
+    docs_inserted_time = int(NUM_DOCS) / total_time
 
 print("\nEnding " + time.strftime("%Y-%m-%d %H:%M:%S", endTs))
 print('===============================')
