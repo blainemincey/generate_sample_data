@@ -95,7 +95,11 @@ else:
 
 print("\nEnding " + time.strftime("%Y-%m-%d %H:%M:%S", endTs))
 print('===============================')
-print('Total Time Elapsed (in seconds): ' + str(total_time))
+
+if total_time > 60:
+    print('Total Time Elapsed (in minutes): ' + str(total_time/60))
+else:
+    print('Total Time Elapsed (in seconds): ' + str(total_time))
 print('===============================')
 print('Number of Docs inserted per second: ' + str(docs_inserted_time))
 print('===============================')
