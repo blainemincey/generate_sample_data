@@ -59,6 +59,7 @@ def main():
             "fuel_usage_rate": faker.random_int(min=4, max=12),
             "outdoor_temp": faker.random_int(min=50, max=95),
             "hydraulic_temp": faker.random_int(min=90, max=100),
+            "horse_power": faker.random_int(min=50, max=450),
             "location": {
                 "type": "Point",
                 "coordinates": [
