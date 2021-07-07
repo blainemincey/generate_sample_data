@@ -8,6 +8,7 @@ load_dotenv(dotenv_path)
 
 # Accessing variables.
 MDB_CONNECTION = os.getenv('MDB_CONNECTION')
+MDB_ANALYTICS_CONNECTION = os.getenv('MDB_ANALYTICS_CONNECTION')
 MDB_DATABASE = os.getenv('MDB_DATABASE')
 MDB_COLLECTION = os.getenv('MDB_COLLECTION')
 NUM_DOCS = os.getenv('NUM_DOCS')
